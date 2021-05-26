@@ -18,7 +18,7 @@ function App() {
 
     db.collection('todos').orderBy('timestamp','asc').onSnapshot(snapshot=>{
     
-      setTodos(snapshot.docs.map(doc=>doc.data()))
+      setTodos(snapshot.docs.map(doc=>({id:doc.id,todo:doc.data().todo})))
     })
     
   },[])
@@ -58,8 +58,8 @@ function App() {
         </Button>
       </form>
       <ul>
-        {todos.map((item,idx) => (
-          <Todo{...item} key={idx} />
+        {todos.map((item) => (
+          <Todo{...item} key={item.id} />
         ))}
       </ul>
     </div>
